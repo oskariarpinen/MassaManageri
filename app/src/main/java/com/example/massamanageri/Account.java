@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-public class Account {
+public class Account { // Basic datatype for handling account specific data. Contains information about user etc...
     String filename;
     long bmi;
     String name;

@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import static android.accounts.AccountManager.*;
 
+
+// Account creating is happening in this fragment
 public class Fragment_createaccount extends Fragment {
 
     Button loginButton,newAccountButton;
@@ -56,12 +58,14 @@ public class Fragment_createaccount extends Fragment {
                 height = Double.parseDouble(weightInput.getText().toString());
                 activitygoal = Double.parseDouble(weightInput.getText().toString());
 
+                // Valiting password generally before sending it off.
                 if(password != passwordcheck){
                     userOut.setText("Passwords dont match.");
                 }else if(password.length() < 12){
                     userOut.setText("Password too short.");
                 }
 
+                // Creates account if everything is cool
                 accountState = accountmanager.createAccount(username,password,passwordcheck,weight,height,activitygoal);
                 if (accountState == false){
                     userOut.setText("Username already in use");
@@ -73,6 +77,7 @@ public class Fragment_createaccount extends Fragment {
         });
         return view;
     }
+    //Fragment callback to switch between fragments from a fragment
     public void setFragmentCallback(FragmentCallback fragmentCallback){
         this.fragmentCallback = fragmentCallback;
     }

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+// This is used only for launching login/create account fragments and eventually InterfaceActivity
 public class MainActivity extends AppCompatActivity implements FragmentCallback {
     Fragment fragment;
     FragmentManager manager;

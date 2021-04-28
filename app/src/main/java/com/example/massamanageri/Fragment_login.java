@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+
+// Loggin in is happening in this fragment
 public class Fragment_login extends Fragment {
     Button loginButton,newAccountButton;
     EditText usernameInput,passwordInput;
@@ -44,18 +46,22 @@ public class Fragment_login extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // This should have its own class to be honest, but the password is validated
+                // here.
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
                 hasher = new PasswordHasher();
                 temppassword1 = readUserFile(username,context);
                 temppassword2 = hasher.createHashWithSalt(password);
-                System.out.println(temppassword2);
-                if(temppassword1.equals(temppassword2) == true && fragmentCallback != null) {
+                if(temppassword1.equals(temppassword2) && fragmentCallback != null) {
+                    // Lets you in if you got the password right
                     fragmentCallback.loadMainMenu(username);
                 }
             }
         });
 
+        // Launches create account fragment
         newAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +78,11 @@ public class Fragment_login extends Fragment {
     public void setFragmentCallback(FragmentCallback fragmentCallback){
         this.fragmentCallback = fragmentCallback;
     }
+
+    /* Could not figure out how to transfer the AccountManager instance around, had to Jesus tape
+     it together. This returns the hashed password from the user file. I really do not know why it
+     not in FileReadAndWrite-class
+     */
     public String readUserFile(String username, Context context) {
         String filename = username+".txt" ;
         String r = "";
@@ -79,8 +90,7 @@ public class Fragment_login extends Fragment {
             InputStream stream = context.openFileInput(filename);
             BufferedReader br = new BufferedReader(new InputStreamReader(stream));
             r = br.readLine();
-            r = br.readLine();
-            System.out.println(r);
+            r = br.readLine(); // Finally arrived to the password row, returs hashed password
             stream.close();
         } catch (IOException e) {
             Log.e("IOException", "Virhe luettaessa");

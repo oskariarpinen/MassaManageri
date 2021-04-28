@@ -1,3 +1,4 @@
+
 package com.example.massamanageri;
 
 import android.app.VoiceInteractor;
@@ -15,9 +16,9 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CarbonEmissionsAPI {
+public class CarbonEmissionsAPI { // Class which funtions as an interface between Ilmastohelppi API and application
     Context context;
-    private JSONObject jsonObject;
+    private JSONObject jsonObject; // Request takes JSON object
     String resp;
 
     public CarbonEmissionsAPI(Context c){
@@ -26,27 +27,25 @@ public class CarbonEmissionsAPI {
 
     public String sendRequest(int f){
         String url = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/v1/TransportCalculator/PublicTransportEstimate";
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        RequestQueue requestQueue = Volley.newRequestQueue(context); //Volley used to send the request
         jsonObject = new JSONObject();
-        int g = 2*f;
+        int g = 2*f; // Used to estimate saved emissions
         try {
-            jsonObject.put("Train",Integer.valueOf(f));
-            jsonObject.put("Bus",Integer.valueOf(f));
-            jsonObject.put("Other",Integer.valueOf(0));
-            jsonObject.put("Total",Integer.valueOf(g));
+            jsonObject.put("cityBusWeek",Integer.valueOf(f)); // Construction of JSON object
+            jsonObject.put("cityTrainWeek",Integer.valueOf(f));// --.--
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        JsonObjectRequest jsonrequest = new JsonObjectRequest(
+        JsonObjectRequest jsonrequest = new JsonObjectRequest( // The Volley request itself
                 Request.Method.GET,
                 url,
                 jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.e("Response received",response.toString());
+                        Log.e("Response received",response.toString()); //Logging response
 
                     }
                 },
@@ -59,8 +58,8 @@ public class CarbonEmissionsAPI {
                 }
         );
 
-        requestQueue.add(jsonrequest);
-        return resp;
+        requestQueue.add(jsonrequest); // Sends the actual response
+        return resp; // Returns response back to application
     }
 }
 

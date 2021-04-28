@@ -130,22 +130,6 @@ public class FileReadAndWrite {
             Log.e("IOException", "Virhe kirjoittaessa");
         }
     }
-    public void writeAccountLog(HashMap<String, String> h, Context context) {
-        filename = accountDBfilename;
-        System.out.println(filename);
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
-            Iterator it = h.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                s = pair.getKey().toString() + "," + pair.getValue().toString() + "\n";
-                it.remove();
-            }
-            osw.close();
-        } catch (IOException e) {
-            Log.e("IOException", "write error");
-        }
-    }
 
     public static HashMap<String, String> readAccountLog(Context context) {
         HashMap<String, String> h = new HashMap<String, String>();

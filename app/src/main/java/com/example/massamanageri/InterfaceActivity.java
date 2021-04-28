@@ -33,6 +33,7 @@ public class InterfaceActivity extends AppCompatActivity {
     WeightPoint wp;
     CarbonEmissionsAPI api;
     String response;
+    FileReadAndWrite io;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class InterfaceActivity extends AppCompatActivity {
 
         context = InterfaceActivity.this;
 
-
+        io = new FileReadAndWrite();
 
         AccountManager manager = new AccountManager(context);
         boolean acccountState = manager.getAccountData(username);
@@ -78,6 +79,7 @@ public class InterfaceActivity extends AppCompatActivity {
                     weightPointList.add(wp);
                     setWeightWindow(manager);
                     weightInput.setText("");
+                    io.writeUserWeightFile(manager.getAccount(),context);
                 }
             }
         });
