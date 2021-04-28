@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="Luo käyttäjätunnus syöttämällä pyydetyt tiedot"
+            android:text="Create account by inserting the required information"
             android:textAlignment="gravity"
             android:textAllCaps="true"
             android:textIsSelectable="false"
@@ -63,7 +63,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/purple_700"
             android:ems="10"
-            android:hint="Starting weight"
+            android:hint="Starting weight (kg)"
             android:inputType="numberDecimal"
             android:textColor="@color/white" />
 
@@ -74,7 +74,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/purple_700"
             android:ems="10"
-            android:hint="Height"
+            android:hint="Height (m)"
             android:inputType="numberDecimal"
             android:textColor="@color/white" />
 
@@ -85,7 +85,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/purple_700"
             android:ems="10"
-            android:hint="Activity goal"
+            android:hint="Activity goal (min/week)"
             android:inputType="numberDecimal"
             android:textColor="@color/white" />
 

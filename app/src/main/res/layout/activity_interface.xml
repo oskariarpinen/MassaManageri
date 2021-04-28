@@ -41,11 +41,12 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
+            android:textSize="14dp"
             android:background="#673AB7"
             android:backgroundTint="#946ACF"
             android:ems="10"
             android:gravity="center"
-            android:hint="Input weight"
+            android:hint="Input weight (kg)"
             android:inputType="numberDecimal"
             android:textColor="#FFFFFF" />
 
@@ -56,11 +57,12 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
+            android:textSize="14dp"
             android:background="#673AB7"
             android:backgroundTint="#946ACF"
             android:ems="10"
             android:gravity="center"
-            android:hint="Input activity"
+            android:hint="Input activity (min)"
             android:inputType="numberDecimal"
             android:singleLine="true"
             android:textColor="#FFFFFF" />
@@ -148,7 +150,8 @@
             android:layout_marginRight="10dp"
             android:layout_weight="0.1"
             android:clickable="false"
-            android:lines="5"
+            android:lines="4"
+            android:maxLines="4"
             android:text="25.12.2020: 90 kg \n24.12.2021: 85 kg"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#FFFFFF"
@@ -159,10 +162,12 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxHeight="30dp"
+            android:minHeight="30dp"
             android:layout_weight="0.3"
             android:indeterminate="false"
-            android:max="1"
-            android:progressTint="#EF0909" />
+            android:max="100"
+            android:progressTint="#EF8009" />
 
     </LinearLayout>
 
@@ -176,7 +181,7 @@
         android:clickable="false"
         android:gravity="center"
         android:textSize="16dp"
-        android:text="Keep on walking! You have saved X tons of carbon emissions this year by being active!"
+        android:text="Keep on walking! You have avoided 0 kilos of carbon emissions this year by being active!"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFFFFF" />
 

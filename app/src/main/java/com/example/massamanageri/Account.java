@@ -10,14 +10,14 @@ public class Account { // Basic datatype for handling account specific data. Con
     String name;
     String psswrd;
     double height1;
-    double activityGoal;
+    long activityGoal;
     WeightPoint tempWeightPoint;
-    long yearlyActivity;
-    double weeklyactivity;
+    long yearlyActivity,weeklyactivity;
+    long tempweekly,tempyearly;
     List<WeightPoint> weightPointList;
 
 
-    public Account(String username, String hashedpassword, double weight, double height, double activitygoal) {
+    public Account(String username, String hashedpassword, double weight, double height, long activitygoal) {
         BmiCalculator bmicalc = new BmiCalculator();
         name = username;
         psswrd = hashedpassword;
@@ -30,6 +30,20 @@ public class Account { // Basic datatype for handling account specific data. Con
         weightPointList.add(tempWeightPoint);
         yearlyActivity = 0;
         weeklyactivity = 0;
+    }
+    public Account(String username, String hashedpassword, double weight, double height, long activitygoal,long yearly, long weekly) {
+        BmiCalculator bmicalc = new BmiCalculator();
+        name = username;
+        psswrd = hashedpassword;
+        bmi = bmicalc.calculateBMI(height, weight);
+        height1 = height;
+        activityGoal = activitygoal;
+        filename = new StringBuilder(username+".txt").toString();
+        weightPointList = new ArrayList<WeightPoint>();
+        tempWeightPoint = new WeightPoint(weight);
+        weightPointList.add(tempWeightPoint);
+        yearlyActivity = yearly;
+        weeklyactivity = weekly;
     }
 
     public String getFilename(){
@@ -44,7 +58,13 @@ public class Account { // Basic datatype for handling account specific data. Con
     public double getHeight(){
         return height1;
     }
-    public double getActivityGoal(){return activityGoal;}
+    public long getActivityGoal(){return activityGoal;}
+    public long getYearlyActivity(){
+        return yearlyActivity;
+    }
+    public long getWeeklyActivity(){
+        return weeklyactivity;
+    }
     public List<WeightPoint> getWeightPointList(){
         return weightPointList;
     }
@@ -52,8 +72,11 @@ public class Account { // Basic datatype for handling account specific data. Con
         weightPointList = l;
     }
 
-    public void setYearlyActivity(long a) {
-        this.yearlyActivity = yearlyActivity+a;
+    public void addActivity(long a) {
+        tempyearly = yearlyActivity+a;
+        tempweekly = weeklyactivity+a;
+        yearlyActivity = tempyearly;
+        weeklyactivity = tempweekly;
     }
     public void addWeightPoint(WeightPoint w){
         weightPointList.add(w);

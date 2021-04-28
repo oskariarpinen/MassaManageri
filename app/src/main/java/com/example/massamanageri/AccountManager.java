@@ -19,13 +19,12 @@ public class AccountManager { // Class to manage the account datastructure.
 
     public AccountManager(Context c) {
         context = c;
-        io = new FileReadAndWrite();
-        users = FileReadAndWrite.readAccountLog(c);
     }
 
     // Method used when creating new account
-    public boolean createAccount(String username, String password, String passwordcheck, double weight, double height, double activitygoal) {
+    public boolean createAccount(String username, String password, String passwordcheck, double weight, double height, long activitygoal) {
         hasher = new PasswordHasher();
+        HashMap<String,String> users = new HashMap<String,String>();
         if (users.get(username)!= null){
             return false;
         }

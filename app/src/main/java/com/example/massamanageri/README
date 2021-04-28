@@ -76,5 +76,5 @@ Epoch data is used to track the activity/weight development as a function of tim
 8. User data storing
 
 User data is stored in plain text files, which are formatted to function as CSV files. Every account
-has three files: account file, weight data file and activity data file. These files are created at
+has two files: account file, weight data file. These files are created at
 the time that the account is created

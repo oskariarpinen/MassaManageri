@@ -23,7 +23,8 @@ public class Fragment_createaccount extends Fragment {
     Button loginButton,newAccountButton;
     EditText usernameInput,passwordInput, passwordcheckInput,weightInput,heightInput,activitygoalInput;
     String username, password, passwordcheck;
-    double weight, height, activitygoal;
+    double weight, height;
+    long activitygoal;
     FragmentCallback fragmentCallback;
     TextView userOut;
     Boolean accountState;
@@ -55,8 +56,8 @@ public class Fragment_createaccount extends Fragment {
                 password = passwordInput.getText().toString();
                 passwordcheck = passwordcheckInput.getText().toString();
                 weight = Double.parseDouble(weightInput.getText().toString());
-                height = Double.parseDouble(weightInput.getText().toString());
-                activitygoal = Double.parseDouble(weightInput.getText().toString());
+                height = Double.parseDouble(heightInput.getText().toString());
+                activitygoal = Long.parseLong(activitygoalInput.getText().toString());
 
                 // Valiting password generally before sending it off.
                 if(password != passwordcheck){
@@ -67,7 +68,7 @@ public class Fragment_createaccount extends Fragment {
 
                 // Creates account if everything is cool
                 accountState = accountmanager.createAccount(username,password,passwordcheck,weight,height,activitygoal);
-                if (accountState == false){
+                if (!accountState){
                     userOut.setText("Username already in use");
                     return;
                 } else {

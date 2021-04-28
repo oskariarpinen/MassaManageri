@@ -28,10 +28,12 @@ public class FileReadAndWrite {
     HashMap<String,String> h = null;
     String password;
 
-    double height, activitygoal;
+    double height;
+    long activitygoal;
     WeightPoint wp;
     Double weight;
-    long time;
+    long time, templong,yearly,weekly;
+
 
 
     public FileReadAndWrite() {
@@ -49,14 +51,12 @@ public class FileReadAndWrite {
                 weight = Double.valueOf(x[0]);
                 time = Long.valueOf(x[1]);
                 wp = new WeightPoint(weight,time);
-                System.out.println(wp.getEpoch());
-                System.out.println(wp.getWeight());
                 list.add(wp);
                 r = br.readLine();
             }
             stream.close();
         } catch (IOException e) {
-            Log.e("IOException", "read error");
+            Log.e("IOException", "read error1");
 
         }
         return list;
@@ -75,11 +75,15 @@ public class FileReadAndWrite {
             r = br.readLine();
             height = Double.valueOf(r);
             r = br.readLine();
-            activitygoal = Double.valueOf(r);
+            activitygoal = Long.valueOf(r);
+            r = br.readLine();
+            yearly = Long.valueOf(r);
+            r = br.readLine();
+            weekly = Long.valueOf(r);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Account account = new Account(username,password,w,height,activitygoal);
+        Account account = new Account(username,password,w,height,activitygoal,yearly,weekly);
         return account;
     }
 
@@ -99,9 +103,15 @@ public class FileReadAndWrite {
             s = Double.toString(temp);
             s = s+"\n";
             osw.write(s);
-            temp = account.getActivityGoal();
-            s = Double.toString(temp);
+            long templong1 = account.getActivityGoal();
+            s = Long.toString(templong1);
             s = s+"\n";
+            osw.write(s);
+            long templong2 = account.getYearlyActivity();
+            s = Long.toString(templong2)+"\n";
+            osw.write(s);
+            long templong3 = account.getWeeklyActivity();
+            s = Long.toString(templong3)+"\n";
             osw.write(s);
             osw.close();
 
@@ -145,7 +155,7 @@ public class FileReadAndWrite {
             }
             br.close();
         } catch (IOException e) {
-            Log.e("IOException", "read error");
+            Log.e("IOException", "read error2");
         }
         return h;
     }

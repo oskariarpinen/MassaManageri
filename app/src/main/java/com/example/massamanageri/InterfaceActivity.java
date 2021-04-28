@@ -22,18 +22,20 @@ public class InterfaceActivity extends AppCompatActivity {
     TextView welcomeText, weightWindow;
     ProgressBar activityProgress;
     String username, temp;
-    Double w,a;
+    Double w;
+    long a,epoch,tempprogress;
     Context context;
     Account account;
     List<WeightPoint> weightPointList = new ArrayList<WeightPoint>();
     WeightPoint tempwp;
-    long epoch;
+
     Date fromepoch;
     String fromepoch2;
     WeightPoint wp;
     CarbonEmissionsAPI api;
     String response;
     FileReadAndWrite io;
+    int currprog,goal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class InterfaceActivity extends AppCompatActivity {
         weightInput = findViewById(R.id.weightInput);
         activityInput = findViewById(R.id.activityInput);
         weightWindow = findViewById(R.id.weightView);
+        activityProgress = findViewById(R.id.activityprogressBar);
+
 
         context = InterfaceActivity.this;
 
@@ -60,12 +64,17 @@ public class InterfaceActivity extends AppCompatActivity {
         if (acccountState == false){
             loadMainMenu();
         }
+
+        account = manager.getAccount();
+        goal = (int) account.getActivityGoal();
+        activityProgress.setMax(goal);
+
         setWeightWindow(manager);
 
-        api = new CarbonEmissionsAPI(context);
+       /* api = new CarbonEmissionsAPI(context);
         response = api.sendRequest(250);
         System.out.println(response);
-
+       */
 
         weightButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +92,22 @@ public class InterfaceActivity extends AppCompatActivity {
                 }
             }
         });
-
+        activityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (activityInput.getText()==null){
+                    return;
+                } else{
+                    temp = activityInput.getText().toString();
+                    a = Long.valueOf(temp);
+                    account = manager.getAccount();
+                    account.addActivity(a);
+                    activityInput.setText("");
+                    io.writeUserFile(account,context);
+                    adjustProgressBar(account);
+                }
+            }
+        });
     }
     public void loadMainMenu(){
         Intent intent = new Intent(InterfaceActivity.this,MainActivity.class);
@@ -109,5 +133,10 @@ public class InterfaceActivity extends AppCompatActivity {
             }
         }
         weightWindow.setText(s);
+    }
+
+    public void adjustProgressBar(Account account){
+        a = account.getWeeklyActivity();
+        activityProgress.setProgress((int) a);
     }
 }
