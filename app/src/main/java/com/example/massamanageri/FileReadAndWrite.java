@@ -56,7 +56,7 @@ public class FileReadAndWrite {
             }
             stream.close();
         } catch (IOException e) {
-            Log.e("IOException", "Virhe luettaessa");
+            Log.e("IOException", "read error");
 
         }
         return list;
@@ -106,7 +106,7 @@ public class FileReadAndWrite {
             osw.close();
 
         } catch (IOException e) {
-            Log.e("IOException", "Virhe kirjoittaessa");
+            Log.e("IOException", "Write error ");
         }
     }
     public void writeUserWeightFile(Account account, Context context) {
@@ -127,7 +127,7 @@ public class FileReadAndWrite {
             }
             osw.close();
         } catch (IOException e) {
-            Log.e("IOException", "Virhe kirjoittaessa");
+            Log.e("IOException", "write error");
         }
     }
 
