@@ -89,7 +89,6 @@ public class FileReadAndWrite {
 
     public void writeUserFile(Account account, Context context) {
         filename = account.getFilename();
-        System.out.println(filename);
         double temp;
         long tempEpoch;
         WeightPoint tempwp;
@@ -121,7 +120,6 @@ public class FileReadAndWrite {
     }
     public void writeUserWeightFile(Account account, Context context) {
         filename = account.getUsername()+"_weight.txt";
-        System.out.println(filename);
         double temp;
         long tempEpoch;
         WeightPoint tempwp;
@@ -158,5 +156,34 @@ public class FileReadAndWrite {
             Log.e("IOException", "read error2");
         }
         return h;
+    }
+
+    public static void writeapiresponse(String s, Context c){
+        String filename = "apiresponse.txt";
+        Context context = c;
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            osw.write(s);
+            osw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String readapiresponse(Context c){
+        String value;
+        String read;
+        String filename = "apiresponse.txt";
+        try {
+            InputStream stream = c.openFileInput(filename);
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            read = br.readLine();
+            return read;
+        } catch (IOException e) {
+            read = "FAIL";
+            e.printStackTrace();
+        }
+        return read;
     }
 }

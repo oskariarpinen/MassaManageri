@@ -128,7 +128,7 @@
             android:layout_marginRight="5dp"
             android:clickable="false"
             android:gravity="center"
-            android:text="Your activity progress:"
+            android:text="Your activity progress this week:"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#FFFFFF"
             android:textSize="16dp" />
@@ -166,7 +166,9 @@
             android:minHeight="30dp"
             android:layout_weight="0.3"
             android:indeterminate="false"
+            android:layout_marginRight="20dp"
             android:max="100"
+            android:background="@color/purple_700"
             android:progressTint="#EF8009" />
 
     </LinearLayout>

@@ -19,7 +19,7 @@ import java.util.List;
 public class InterfaceActivity extends AppCompatActivity {
     Button weightButton,activityButton,drawButton;
     EditText weightInput,activityInput;
-    TextView welcomeText, weightWindow;
+    TextView welcomeText, weightWindow, emissionsField;
     ProgressBar activityProgress;
     String username, temp;
     Double w;
@@ -53,6 +53,7 @@ public class InterfaceActivity extends AppCompatActivity {
         activityInput = findViewById(R.id.activityInput);
         weightWindow = findViewById(R.id.weightView);
         activityProgress = findViewById(R.id.activityprogressBar);
+        emissionsField = findViewById(R.id.emissionsScreen);
 
 
         context = InterfaceActivity.this;
@@ -70,16 +71,17 @@ public class InterfaceActivity extends AppCompatActivity {
         activityProgress.setMax(goal);
 
         setWeightWindow(manager);
+        adjustProgressBar(account);
+        calculateEmissions(account.getYearlyActivity());
+        temp = FileReadAndWrite.readapiresponse(context);
+        setEmissionField(temp);
 
-       /* api = new CarbonEmissionsAPI(context);
-        response = api.sendRequest(250);
-        System.out.println(response);
-       */
+
 
         weightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (weightInput.getText()==null){
+                if (weightInput.getText().toString().isEmpty()){
                     return;
                 } else{
                     temp = weightInput.getText().toString();
@@ -95,7 +97,7 @@ public class InterfaceActivity extends AppCompatActivity {
         activityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activityInput.getText()==null){
+                if (activityInput.getText().toString().isEmpty()){
                     return;
                 } else{
                     temp = activityInput.getText().toString();
@@ -103,8 +105,11 @@ public class InterfaceActivity extends AppCompatActivity {
                     account = manager.getAccount();
                     account.addActivity(a);
                     activityInput.setText("");
+                    calculateEmissions(account.getYearlyActivity());
                     io.writeUserFile(account,context);
                     adjustProgressBar(account);
+                    temp = FileReadAndWrite.readapiresponse(context);
+                    setEmissionField(temp);
                 }
             }
         });
@@ -138,5 +143,16 @@ public class InterfaceActivity extends AppCompatActivity {
     public void adjustProgressBar(Account account){
         a = account.getWeeklyActivity();
         activityProgress.setProgress((int) a);
+    }
+
+    public void setEmissionField(String s){
+        float tempfloat = Float.parseFloat(s);
+        String tempstring = String.format("Keep on walking! You have avoided %.0f kilos of carbon emissions this year by being active!",tempfloat);
+        emissionsField.setText(tempstring);
+    }
+
+    public void calculateEmissions(long yearly){
+        api = new CarbonEmissionsAPI(context);
+        api.sendRequest((int) yearly);
     }
 }
