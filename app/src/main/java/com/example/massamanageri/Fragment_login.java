@@ -56,7 +56,6 @@ public class Fragment_login extends Fragment {
                 temppassword2 = hasher.createHashWithSalt(password);
                 if(temppassword1.equals(temppassword2) && fragmentCallback != null) {
                     // Lets you in if you got the password right
-
                     usernameInput.setText("");
                     passwordInput.setText("");
                     fragmentCallback.loadMainMenu(username);

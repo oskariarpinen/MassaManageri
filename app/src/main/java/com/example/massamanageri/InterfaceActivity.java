@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,8 +74,7 @@ public class InterfaceActivity extends AppCompatActivity {
         setWeightWindow(manager);
         adjustProgressBar(account);
         calculateEmissions(account.getYearlyActivity());
-        temp = FileReadAndWrite.readapiresponse(context);
-        setEmissionField(temp);
+        delayedRead();
 
 
 
@@ -108,8 +108,7 @@ public class InterfaceActivity extends AppCompatActivity {
                     calculateEmissions(account.getYearlyActivity());
                     io.writeUserFile(account,context);
                     adjustProgressBar(account);
-                    temp = FileReadAndWrite.readapiresponse(context);
-                    setEmissionField(temp);
+                    delayedRead();
                 }
             }
         });
@@ -147,12 +146,24 @@ public class InterfaceActivity extends AppCompatActivity {
 
     public void setEmissionField(String s){
         float tempfloat = Float.parseFloat(s);
-        String tempstring = String.format("Keep on walking! You have avoided %.0f kilos of carbon emissions this year by being active!",tempfloat);
+        String tempstring = String.format("Keep on walking! You have avoided \n %.0f kilos of carbon emissions this year by being active!",tempfloat);
         emissionsField.setText(tempstring);
     }
 
     public void calculateEmissions(long yearly){
         api = new CarbonEmissionsAPI(context);
         api.sendRequest((int) yearly);
+    }
+    
+    public void delayedRead(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                temp = FileReadAndWrite.readapiresponse(context);
+                setEmissionField(temp);
+
+            }
+        }, 1000);
     }
 }

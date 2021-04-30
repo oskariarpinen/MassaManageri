@@ -60,21 +60,19 @@ public class Fragment_createaccount extends Fragment {
                 activitygoal = Long.parseLong(activitygoalInput.getText().toString());
 
                 // Valiting password generally before sending it off.
-                if(password != passwordcheck){
+                if(!password.equals(passwordcheck)){
                     userOut.setText("Passwords dont match.");
                 }else if(password.length() < 12){
-                    userOut.setText("Password too short.");
-                }
-
-                // Creates account if everything is cool
-                accountState = accountmanager.createAccount(username,password,passwordcheck,weight,height,activitygoal);
-                if (!accountState){
-                    userOut.setText("Username already in use");
-                    return;
-                } else {
-                    fragmentCallback.loadLoginFragment();
-                }
-            }
+                    userOut.setText("Password too short. (12 chars minimum)");
+                }else{
+                    // Creates account if everything is cool
+                    accountState = accountmanager.createAccount(username,password,passwordcheck,weight,height,activitygoal);
+                    if (!accountState){
+                        userOut.setText("Username already in use");
+                    } else {
+                        fragmentCallback.loadLoginFragment();
+                    }
+            }}
         });
         return view;
     }

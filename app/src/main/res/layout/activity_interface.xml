@@ -178,14 +178,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="40dp"
         android:clickable="false"
+        android:textStyle="bold"
         android:gravity="center"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:text="Keep on walking! You have avoided 0 kilos of carbon emissions this year by being active!"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/highlight" />
 
     <Button
         android:id="@+id/weightGraphButton"
